@@ -1,0 +1,75 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.zed/
+.fleet/
+.vs/
+.#*
+\#*#
+
+# Git
+*.orig
+*.rej
+
+# Obsidian — local editor state (workspace layout, cache, graph position),
+# not template content. This template ships no .obsidian/ config; Obsidian
+# generates its own on first open, wherever a vault is opened in this repo.
+**/.obsidian/
+
+# opencode local/session artifacts (do NOT ignore .opencode/agent,
+# .opencode/command, .opencode/skills)
+.opencode/cache/
+.opencode/logs/
+.opencode/node_modules/
+.opencode/package.json
+.opencode/package-lock.json
+.opencode/bun.lock
+
+# Env / secrets
+.env
+.env.*

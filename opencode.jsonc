@@ -1,0 +1,63 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Project context: teaches every opencode session (not just the custom
+  // commands below) the raw/ vs wiki/ conventions this repo follows.
+  "instructions": ["AGENTS.md"],
+
+  // One local model handles both normal and lightweight tasks so Ollama does
+  // not need to keep two models resident.
+  "model": "ollama/llm-wiki:4b",
+  "small_model": "ollama/llm-wiki:4b",
+  "share": "disabled",
+
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1",
+        "timeout": 600000
+      },
+      "models": {
+        "llm-wiki:4b": {
+          "name": "LLM Wiki Qwen3 4B (16K)",
+          "tool_call": true,
+          "limit": {
+            "context": 16384,
+            "output": 4096
+          }
+        }
+      }
+    }
+  },
+
+  // Keep this Markdown-only project offline and avoid background language
+  // tooling. Earlier tool results are pruned to preserve the 16K context window.
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status": "allow",
+      "git status *": "allow",
+      "npx -y markdownlint-cli *": "allow"
+    },
+    "webfetch": "deny",
+    "websearch": "deny"
+  },
+  "formatter": false,
+  "lsp": false,
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 4096
+  },
+  "tool_output": {
+    "max_lines": 400,
+    "max_bytes": 16384
+  }
+
+  // Commands in .opencode/command/ and skills in .opencode/skills/ are
+  // auto-discovered and do not need registration here. The template does not
+  // configure additional agent roles.
+
+}

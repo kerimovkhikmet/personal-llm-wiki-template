@@ -1,0 +1,5 @@
+FROM qwen3:4b
+
+# Enough room for OpenCode's instructions, tools, and a bounded set of wiki
+# pages while remaining practical on a 16 GB machine.
+PARAMETER num_ctx 16384
