@@ -11,11 +11,37 @@ This repository is a local-first, Markdown-based personal LLM wiki.
 
 ## Start Here
 
-- Read `wiki/index.md` first, then skim `wiki/log.md` before changing anything.
-- Treat this startup reading as context preparation. It must not replace or broaden the workflow the user explicitly requested.
-- Treat this file as the canonical contract. Detailed procedures are in `.opencode/skills/*/SKILL.md`; slash commands in `.opencode/command/` dispatch to those skills.
+- Read `wiki/index.md` first, then skim `wiki/log.md` before changing anything. Treat this as background context only: read it to understand the repo, then do exactly the task the user asked, not more.
+- **Priority:** the user's explicit request in the current conversation overrides everything in this file. This file wins over a skill or command only when the user did not clearly say otherwise.
+- This file is the canonical contract. Detailed procedures are in `.opencode/skills/*/SKILL.md`; slash commands in `.opencode/command/` dispatch to those skills.
 - Run every wiki workflow from start to finish in the active primary agent session. Never delegate or spawn subagents: no Task-tool delegation, no additional agent sessions, and no handing off of reading, judgment, or edits to another agent. All steps stay in this session.
 - Search existing wiki pages before creating a topic. Do not invent a parallel structure or duplicate an existing page.
+- Relationship to `README.md`: this file is the canonical operating contract for the agent; the README is setup- and user-facing documentation. Where they overlap (commands, setup), this file governs agent behavior.
+
+## Do Not
+
+These negative rules are stated in full in the sections named by each bullet; this is only a quick pointer to them, not a second source of truth.
+
+- Do not rewrite, rename, or delete raw files or entries (Raw Sources).
+- Do not prepend or reorder `wiki/index.md`, `wiki/log.md`, or `wiki/open-questions.md` (Curated Wiki).
+- Do not force `[[wiki-links]]` or fabricate `## Sources` backlinks (Curated Wiki).
+- Do not copy a page-type taxonomy speculatively (Wiki Layout, Optional Patterns).
+- Do not add search tooling, embeddings, or an MCP server before measured retrieval failures justify it (Optional Patterns).
+- Do not delegate wiki workflows to subagents or other sessions (Start Here).
+
+## Choosing a workflow
+
+Match the user's request to a workflow by what it is:
+
+- A quick, untitled thought ("note that...", "jot this down") - `/wiki-capture`.
+- Material that already has a title or an external source (article, clipper, PDF, chat export) - `raw/notes/` and `/wiki-ingest`.
+- Turning a captured source into curated pages - `/wiki-ingest`.
+- A question about the wiki, a comparison, or a gap-check - `/wiki-query` (read-only unless the user agrees to file).
+- Connecting a page to related pages - `/wiki-link`.
+- Surfacing raw material not yet ingested - `/wiki-review` (read-only).
+- Health-checking the wiki (orphans, broken links, stale claims) - `/wiki-lint` (read-only).
+- Working through a problem by finding unknown unknowns - `/wiki-discover`.
+- When unsure which of the above, read `wiki/index.md`, then ask the user to confirm before acting.
 
 ## Raw Sources
 
@@ -35,24 +61,27 @@ This repository is a local-first, Markdown-based personal LLM wiki.
 
 ## Curated Wiki
 
-- `wiki/` is evergreen and English-only. Translate sources during ingestion, never in `raw/`.
-- Use lowercase, hyphen-separated topic filenames and minimal frontmatter in the order `title`, `date`, `tags`.
+- `wiki/` is evergreen and English-only (see Language). Translate sources during ingestion, never in `raw/`.
+- Use lowercase, hyphen-separated topic filenames and minimal frontmatter in the order `title`, `date`, `tags`; `date` is the latest material curation date (see the template in `wiki/_template.md`).
+- The wiki has its own ground rules beyond the topic-page rules here - read `wiki/README.md` (role of `index.md`/`log.md`/`open-questions.md`, Obsidian vault setup, subfolder guidance) before restructuring `wiki/`.
 - Preserve a cumulative `## Sources` section with `[[raw/...]]` backlinks. Use genuine `[[wiki-links]]` for related pages; do not force links.
-- Every topic page must have a one-line entry in `wiki/index.md`, appended to the end of the relevant section (never prepended to the top). After an ingest or structural change, append the dated change to the bottom of `wiki/log.md` (never prepend or reorder), keeping the body concise and using `-` bullets, one per change, when it covers several changes; record unresolved gaps or contradictions in `wiki/open-questions.md` as appended entries - never prepend or delete existing ones.
+- Every topic page must have a one-line entry in `wiki/index.md`, appended to the end of the relevant section (never prepended to the top).
+- Keep `wiki/log.md` and `wiki/open-questions.md` strictly append-only: after an ingest or structural change, append a dated entry to the bottom of `wiki/log.md` (never prepend or reorder). Keep the body concise; use `-` bullets, one per change, when an entry covers several changes.
+- Record unresolved gaps or contradictions in `wiki/open-questions.md` as appended entries - never prepend or delete existing ones.
 - When ingesting, search for existing pages first, keep the `## Sources` backlinks, and ask before creating or significantly updating more than three topic pages.
 - Only normalize wiki output: use ASCII quotes/apostrophes and `-` list markers. Do not reformat raw sources.
 
 ## Language
 
 - Curated `wiki/` content is English-only. Raw sources retain their original language.
-- Translate during ingestion and identify the source language in `## Sources` when it is not English.
+- Translate during ingestion (see Curated Wiki) and identify the source language in `## Sources` when it is not English.
 
 ## Style & Formatting
 
 - English level: `plain` (default). Write wiki pages in plain, simple English that a non-native speaker can read easily. Set `standard` or `technical` via `/wiki-setup` if preferred.
 - Write concise, evergreen prose instead of summaries that just mirror the source.
 - Use ASCII quotes and apostrophes, decode HTML entities, and use `-` for unordered lists in `wiki/`.
-- Keep frontmatter minimal and ordered as `title`, `date`, `tags`; do not apply these normalizations to `raw/`.
+- Keep frontmatter minimal and ordered as `title`, `date`, `tags` (see Curated Wiki for the canonical rule); do not apply these normalizations to `raw/`.
 - Base exact numbers, dates, and direct quotes on a linked raw source. Mark uncertainty or contradictions instead of hiding them.
 
 ## Wiki Layout
@@ -82,15 +111,28 @@ Use `wiki/index.md` and lexical search by default. Consider a local Markdown sea
 - `/wiki-query` answers from existing wiki content and is read-only unless the user agrees to file new material.
 - `/wiki-lint` reports semantic wiki hygiene issues without edits; wait for explicit approval before fixing findings.
 
-## Local Setup and Checks
+## Commands at a glance
 
-The default OpenCode model is local Ollama (`ollama/llm-wiki:4b`), with web access, formatters, and LSP disabled by `opencode.jsonc`.
+| Command | Job |
+| --- | --- |
+| `/wiki-bootstrap` | Ingest up to ten foundation sources, one at a time. |
+| `/wiki-capture` | Append a timestamped entry to today's `raw/` daily log. |
+| `/wiki-discover` | Find unknown unknowns on a task before/during/after. |
+| `/wiki-ingest` | Turn a raw source or note into curated `wiki/` pages. |
+| `/wiki-link` | Add reciprocal `[[wiki-links]]` between related pages. |
+| `/wiki-lint` | Health-check pages: orphans, broken links, stale claims (read-only). |
+| `/wiki-query` | Answer a question from the wiki (read-only unless filing). |
+| `/wiki-review` | List raw material not yet ingested (read-only). |
+| `/wiki-setup` | Set the Wiki Domain topic/scope/exclusions in this file. |
+
+Full procedures for each live in `.opencode/skills/<name>/SKILL.md`.
+
+## Verification
+
+This repository has no application build or test suite. Verification is Markdown linting only; run it after documentation changes:
 
 ```sh
-ollama pull qwen3:4b
-ollama create llm-wiki:4b -f ollama/Modelfile
-opencode
 npx -y markdownlint-cli "**/*.md"
 ```
 
-The repository has no application build or test suite. Use the Markdown lint command for focused verification after documentation changes.
+Machine setup (Ollama model bootstrap, choosing a model and context, switching models, and compaction) is human-facing and lives in `README.md` > Local setup with Ollama, not here. During long ingests, persist recognized decisions to `wiki/log.md` or `wiki/open-questions.md` as you go so a compaction cannot silently drop them.
