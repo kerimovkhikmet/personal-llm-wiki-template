@@ -33,7 +33,7 @@ They are permanent. Never delete, rename, or rewrite them, and never offer to re
 3. Do not modify `opencode.jsonc`, commands, skills, raw sources, or topic pages. The bundled seed source and its derived page are permanent - never delete, rename, or rewrite them.
 4. Search `wiki/index.md` for other existing pages that appear clearly outside the new domain. Report them for review; do not move, rewrite, or delete them.
 5. Append a concise dated `structure` entry to the bottom of `wiki/log.md` recording the domain configuration. Do not claim that other existing content was reviewed unless it actually was.
-6. Run the setup end-to-end in the active primary agent session; never delegate or spawn subagents.
+6. Run the setup end-to-end in the active primary agent session; never delegate or spawn subagents (no Task-tool delegation, no additional agent sessions).
 
 ## Rules
 

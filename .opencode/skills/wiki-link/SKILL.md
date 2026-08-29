@@ -14,4 +14,4 @@ Read `wiki/index.md` first.
 
 ## Done
 
-Report which pages were linked together. No changes to `wiki/index.md` or `wiki/log.md` are needed for pure linking unless a page was newly created in the process (in which case follow `wiki-ingest`'s hub-file step too). Perform the linking in this session; never delegate or spawn a subagent for it.
+Report which pages were linked together. No changes to `wiki/index.md` or `wiki/log.md` are needed for pure linking unless a page was newly created in the process (in which case follow `wiki-ingest`'s hub-file step too). Perform the linking in this session; never delegate or spawn a subagent (no Task-tool delegation, no additional agent sessions).

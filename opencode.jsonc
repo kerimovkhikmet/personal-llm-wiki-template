@@ -46,6 +46,9 @@
       "git status *": "allow",
       "npx -y markdownlint-cli *": "allow"
     },
+    // wiki workflows must stay single-session (AGENTS.md Start Here). Cloud or
+    // non-wiki Task use can be re-enabled in user config (~/.config/opencode/opencode.json).
+    "task": "deny",
     "webfetch": "deny",
     "websearch": "deny"
   },

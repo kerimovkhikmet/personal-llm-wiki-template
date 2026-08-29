@@ -22,3 +22,7 @@ Read `wiki/index.md` first. Search `wiki/` for the question's key terms and syno
 ## Filing
 
 If the answer brings up something worth keeping, offer to file it - but only act after the user agrees unless they already requested filing. A synthesis based entirely on existing wiki pages may cite those pages. New factual material or personal observations must enter `raw/` first and then follow `wiki-ingest`. Valuable query answers - an analysis, a comparison, a connection - can be filed back into the wiki as new pages so explorations compound in the knowledge base just like ingested sources do; use `wiki-ingest` for that.
+
+## Rules
+
+- Run this query in this session; never delegate or spawn a subagent (no Task-tool delegation, no additional agent sessions).

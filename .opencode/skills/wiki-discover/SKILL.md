@@ -47,7 +47,7 @@ This wiki's purpose is to keep lasting knowledge, so discovered unknowns and dec
 
 ## Rules
 
-- Keep every step in the active primary session. Never delegate or spawn subagents, and never hand the reading, judgment, or edits to another session.
+- Keep every step in the active primary session. Never delegate or spawn subagents (no Task-tool delegation, no additional agent sessions), and never hand the reading, judgment, or edits to another session.
 - Do not invent a parallel structure; the Wiki Domain in `AGENTS.md` still governs what belongs here.
 - Do not modify `raw/`; only append captures through the approved workflows.
 - Match the Style & Formatting rules in `AGENTS.md` when writing wiki content.

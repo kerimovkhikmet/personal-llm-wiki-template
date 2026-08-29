@@ -21,6 +21,7 @@ Default to all of `raw/` if no scope is given; otherwise respect a requested ran
 ## Rules
 
 - **Do not make any edits.** This skill only reports findings.
+- Run this review in this session; never delegate or spawn a subagent (no Task-tool delegation, no additional agent sessions).
 - Do not treat `raw/foundation.md` as a source; review the files it lists normally.
 - Skip non-source helper files in `raw/notes/` - the `_chat-export-prompt.md` and any `README.md`, `_template.md`, or `_`-prefixed helper - rather than reporting them as pending ingestion.
 - Don't change `wiki/index.md`, `wiki/log.md`, or `wiki/open-questions.md`.

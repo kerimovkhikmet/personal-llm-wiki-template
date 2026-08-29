@@ -33,4 +33,5 @@ A simple list only: `path | problem | suggested action`. Separate clear-cut hygi
 
 - **Do not edit any file.** Report only.
 - Do not change `wiki/index.md`, `wiki/log.md`, or `wiki/open-questions.md`.
+- Run this lint in this session; never delegate or spawn a subagent (no Task-tool delegation, no additional agent sessions).
 - Wait for the user to say "fix these" (or name specific items) before making any changes - then treat each fix as a normal `wiki-ingest` or `wiki-link` edit, with its own hub-file updates.

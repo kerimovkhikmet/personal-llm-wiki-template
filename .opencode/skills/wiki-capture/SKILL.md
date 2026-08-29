@@ -15,7 +15,7 @@ Read `AGENTS.md` first if you haven't already this session (Wiki Domain, `raw/` 
 ## Rules
 
 - **Never edit or remove existing entries** in the file - only append.
-- Perform the capture in this session; never delegate or spawn a subagent for it.
+- Perform the capture in this session; never delegate or spawn a subagent (no Task-tool delegation, no additional agent sessions).
 - Don't touch `wiki/` in this skill. Capturing is not ingesting.
 - If the content already has a clear title and/or references an external source (a link, an article, a quote from a specific document), suggest `raw/notes/<YYYY-MM-DD>-<slug>.md` instead and ask before proceeding - don't silently redirect it.
 
