@@ -28,6 +28,11 @@
             "output": 4096
           }
         }
+        // Sized for a weak laptop. To run a different model or change the
+        // context window on a capable machine, see README.md > Local setup
+        // with Ollama (Choosing/Switching models). Prefer editing the user
+        // config (~/.config/opencode/opencode.json) so git does not force one
+        // value on every machine.
       }
     }
   },
@@ -51,6 +56,9 @@
     "prune": true,
     "reserved": 4096
   },
+  // Compaction is client-side (opencode) and applies to every model; see
+  // README.md > Local setup with Ollama > Compaction for how it works and how
+  // to reduce frequent compaction (raise the context window, not these numbers).
   "tool_output": {
     "max_lines": 400,
     "max_bytes": 16384

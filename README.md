@@ -14,6 +14,10 @@ A local-first template for building a personal knowledge base with [OpenCode](ht
 - [Folder structure](#folder-structure)
 - [Obsidian compatibility](#obsidian-compatibility)
 - [Local setup with Ollama](#local-setup-with-ollama)
+  - [Choosing a model and context for your machine](#choosing-a-model-and-context-for-your-machine)
+  - [Switching models](#switching-models)
+  - [Compaction](#compaction)
+  - [Resuming a session by ID](#resuming-a-session-by-id)
 - [Optional cloud model](#optional-cloud-model)
 - [Architecture: skills + thin commands](#architecture-skills--thin-commands)
 - [Multi-tool support](#multi-tool-support)
@@ -95,7 +99,9 @@ See `raw/README.md`, `raw/notes/README.md`, and `wiki/README.md` for details, an
 
 ## Obsidian compatibility
 
-Open the repository root as an [Obsidian](https://obsidian.md) vault. This keeps `[[raw/...]]` source links from wiki pages resolvable while preserving the `raw/` and `wiki/` separation. The template doesn't ship an `.obsidian/` config; Obsidian generates its own on first open. Backlinks, outgoing links, graph view, and visible orphans are useful optional settings, but keep `.obsidian/` as local state rather than committing it.
+Open the repository root as an [Obsidian](https://obsidian.md) vault - not just the `wiki/` folder. This keeps `[[raw/...]]` source links from wiki pages resolvable while preserving the `raw/` and `wiki/` separation. The template doesn't ship an `.obsidian/` config; Obsidian generates its own on first open. Because the vault is the repo directory, each wiki is named after its repository folder (for example `devops-wiki`) in Obsidian's switcher rather than generically "wiki", so multiple instantiated wikis stay distinguishable.
+
+Opening the repo root makes the whole tree part of one vault, so the default graph view can look cluttered. For a graph limited to the curated pages, add a graph filter that matches only `path:wiki` (Obsidian > Settings > Graph view > Filter). Backlinks, outgoing links, and visible orphans are useful optional settings, but keep `.obsidian/` as local state rather than committing it.
 
 Two optional Obsidian plugins worth knowing about, if useful for your workflow: **Dataview** (query wiki page frontmatter into dynamic tables/ lists - handy if you tag pages with `tags`/`date`) and **Marp** (turn wiki content into a slide deck). Neither is required.
 
@@ -128,6 +134,48 @@ The default targets a machine with 16 GB of RAM or VRAM. It uses one Qwen3 4B mo
 The English level of generated wiki pages also depends on the model - a small local model tends to write simpler, plainer English, while larger or cloud models may use a richer vocabulary. The target level is `plain` by default (see `AGENTS.md` > Style & Formatting) and can be changed with `/wiki-setup`.
 
 If 4B is not reliable enough and the machine has enough spare memory, change the `FROM` line in `ollama/Modelfile` to `qwen3:8b`, build it under a distinct tag, update both model fields in `opencode.jsonc`, and review latency and memory use before adopting it permanently.
+
+### Choosing a model and context for your machine
+
+The `opencode.jsonc` settings here are sized for the weakest target machine (2 GB VRAM, 16 GB RAM). Pick a model and a context window per machine:
+
+- Choose a model size that fits comfortably in available RAM together with your context needs, leaving headroom for the operating system.
+- Prefer the largest context window the machine can hold while keeping a responsive session. Context headroom is the main lever for avoiding mid-ingest compaction: a small window causes several compactions in a single long turn.
+- A single compaction at the end of a long session is fine; repeated compactions during one ingest signal that the context window is too small for the work, so raise it.
+- Benchmark with a small representative task (for example ingest one `raw/notes/` file) before committing to a setup.
+
+### Switching models
+
+Example of switching to a larger local model (for example `qwen3.5:9b`) on a capable machine:
+
+```sh
+ollama pull qwen3.5:9b
+```
+
+Then update `opencode.jsonc`:
+
+- Set the default: `"model": "ollama/qwen3.5:9b"`.
+- Register the model under `provider.ollama.models` with `tool_call: true` and a `limit.context` / `limit.output` the machine can support (for example `32768` / `8192`).
+- Keep the same window in `ollama/Modelfile`: `PARAMETER num_ctx <context>`.
+
+Prefer making the model and context changes in your user-level config (`~/.config/opencode/opencode.json`) so `git` does not force one machine's values on everyone using the repo.
+
+### Compaction
+
+Compaction summarizes older context to make room once a session nears its limit. It is performed by opencode (the client), not by Ollama: when a session approaches the per-model `limit.context`, opencode asks the active model to summarize older context. It is model-agnostic and covers every model, but summary quality scales with the model. Because durable knowledge here lives in `raw/` and `wiki/` rather than only in the conversation, a lossy compaction is low-cost. During long ingests, it helps to persist recognized decisions to `wiki/log.md` or `wiki/open-questions.md` as you go so a compaction cannot silently drop them.
+
+The `compaction` block in `opencode.jsonc` sets `auto`, `prune` (drop older tool output down to a `reserved` token budget first), and `reserved`. The main lever to reduce frequent compaction during a long ingest is a larger context window, not these numbers.
+
+### Resuming a session by ID
+
+OpenCode stores every session in a local SQLite database, but neither the TUI nor `opencode session list` groups sessions by the folder they were started in - the list is flat and shows no per-project grouping. That is why this command exists: it filters the database for the current folder so you can grab its most recent session ID. To resume a specific session (for example to keep working in the same context as a previous run), pass the ID with `-s`:
+
+```sh
+opencode -s $(sqlite3 ~/.local/share/opencode/opencode.db \
+  "SELECT id FROM session WHERE directory = '$PWD' ORDER BY time_updated DESC LIMIT 1;")
+```
+
+This picks the most recently updated session for the current folder - the active one after an earlier run. `opencode export <sessionID>` dumps a session to JSON, and `opencode session list` lists sessions. These commands need `sqlite3` installed. `OPENCODE_PID` (the process environment variable) identifies the running process, not the session, so it cannot substitute for this.
 
 ## Optional cloud model
 

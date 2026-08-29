@@ -26,7 +26,7 @@ This is the **curated, evergreen reference**. Start with one flat file per topic
 
 ## Obsidian compatibility
 
-Open the repository root as the Obsidian vault so `[[raw/...]]` source links from wiki pages resolve. The template ships no `.obsidian/` configuration; Obsidian creates it locally on first open.
+Open the repository root as the Obsidian vault so `[[raw/...]]` source links from wiki pages resolve - not the `wiki/` folder alone. The vault is named after the repo directory (for example `devops-wiki`), so multiple instantiated wikis stay distinguishable in Obsidian's switcher rather than all appearing as "wiki". To keep the graph view limited to curated pages, add a graph filter matching `path:wiki`. The template ships no `.obsidian/` configuration; Obsidian creates it locally on first open.
 
 ## Optional: page-type subfolders
 
