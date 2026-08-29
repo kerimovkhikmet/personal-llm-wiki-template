@@ -17,11 +17,17 @@ Read `wiki/index.md`, `wiki/log.md`, and `wiki/open-questions.md` first. Don't o
 - **`wiki/open-questions.md` entries that could now be resolved** - a gap was filed, and a `raw/` source that would resolve it has since appeared.
 - **Source links** - every topic page has a non-empty `## Sources` section, every listed raw target exists, and earlier sources were not dropped during an update.
 - **High-signal grounding** - exact numbers, dates, and direct quotes can be found in at least one linked raw source. Treat matches as mechanical evidence checks, not proof that the surrounding interpretation is correct.
+- **`delete:`** page or section nobody would query; leave it in `raw/`.
+- **`duplicate:`** near-copy of an existing page; merge.
+- **`yagni:`** page-type folder, tag scheme, or tool with one use.
+- **`unlink:`** forced `[[wiki-link]]` with no real relation.
+- **`stale:`** claim with no current source.
+- **`hub-drift:`** `index.md` / `log.md` out of date.
 - **Formatting drift** - curly quotes, HTML entities, or `*`/`+` list markers that slipped into a `wiki/` page (see `AGENTS.md` > Style & Formatting).
 
 ## Output
 
-A simple list only: `path | problem | suggested action`. Separate clear-cut hygiene findings from judgment-based findings, and group by page when useful.
+A simple list only: `path | problem | suggested action`. Separate clear-cut hygiene findings from judgment-based findings, and group by page when useful. End with `net: -N pages / -M unearned links`, or `Lean already.` if nothing is fat.
 
 ## Rules
 

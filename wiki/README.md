@@ -17,7 +17,7 @@ This is the **curated, evergreen reference**. Start with one flat file per topic
 
 - **`index.md`** - read this first. Every page is listed here with a one-line summary; new rows are appended to the end of the relevant section.
 - **`log.md`** - the wiki's own changelog (distinct from `raw/`'s daily log): one dated entry per ingest or structural change, appended at the bottom, newest last. Keep entries concise; use `-` bullets when an entry covers several changes.
-- **`open-questions.md`** - dated log of contradictions and gaps found while ingesting or linking, so they don't get silently hidden; entries are appended, never prepended or deleted.
+- **`open-questions.md`** - dated log of contradictions and gaps found while ingesting or linking, so they don't get silently hidden; entries are appended, never prepended or deleted. Also the debt ledger: each entry carries a ceiling and a trigger (e.g. "Flat `wiki/` until ~80 topic pages. Trigger: index sections become hard to scan.").
 
 ## How pages get here
 
