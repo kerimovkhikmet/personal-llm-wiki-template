@@ -36,7 +36,7 @@ Before every write, run this short ladder:
 - Does this claim need a page, or does it stay in `raw/`?
 - Search `wiki/` first; update the existing page rather than creating a near-duplicate.
 - Use `index.md` + lexical search, existing skills, or Obsidian if you already use it. Do not add a tool.
-- Surgical edit; one page; no new folder.
+- Surgical edit; one page; no new folder -- but not by bundling queryable systems into one page to stay at 3.
 - Does it survive a query? If nobody would ask for it later, it stays in `raw/`.
 - Read the source and candidate pages fully before writing; do not shrink a page by skipping the source.
 

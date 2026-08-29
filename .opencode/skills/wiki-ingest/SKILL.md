@@ -41,7 +41,7 @@ Three postures -- encode them as scope, not as a mode switch. Default is **full*
 
 - Search the full `wiki/` for the source's key concepts and synonyms, not only `index.md`. Update existing pages rather than creating near-duplicates.
 - Before writing, decide the category: **New**, **Update**, **Disputed**, or **No material**. These may combine except No material, which is exclusive.
-- List the pages that would be created or materially updated. If there are more than three, ask the user to approve that scope first.
+- List the pages that would be created or materially updated. If the source clearly warrants more than three or bundling would hurt queryability (e.g., 4 systems into one 100+ line page), ask the user to approve the larger scope *before* writing -- do not file compressed at 3 then ask after.
 - If the source adds no new knowledge, or posture is **ultra** and the source does not change what you would query later, leave it in `raw/`, append a `No material` entry to `wiki/log.md`, and stop.
 - If creating a new page, use `wiki/_template.md`, lowercase hyphen-separated filename.
 
