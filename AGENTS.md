@@ -133,6 +133,7 @@ This repository has no application build or test suite. Verification is Markdown
 
 ```sh
 npx -y markdownlint-cli "**/*.md"
+sh scripts/check-wiki-style.sh
 ```
 
 Machine setup (Ollama model bootstrap, choosing a model and context, switching models, and compaction) is human-facing and lives in `README.md` > Local setup with Ollama, not here. During long ingests, persist recognized decisions to `wiki/log.md` or `wiki/open-questions.md` as you go so a compaction cannot silently drop them.

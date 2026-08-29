@@ -230,6 +230,7 @@ The default uses plain Markdown, `wiki/index.md`, lexical search, and wikilinks.
 
 ```sh
 npx -y markdownlint-cli "**/*.md"
+sh scripts/check-wiki-style.sh
 ```
 
 ## License
