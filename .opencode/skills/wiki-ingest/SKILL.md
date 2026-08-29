@@ -29,15 +29,23 @@ Assign a rough confidence per claim you extract (optional but recommended - see 
 - `inferred` - your own synthesis, not stated outright by any source.
 - `contested` - sources disagree; note the contradiction explicitly.
 
-## 3. Find or create the target page
+## 3. Choose an intake posture
+
+Three postures -- encode them as scope, not as a mode switch. Default is **full**; use **lite** when triaging, **ultra** when hygiene matters (template). User can name a posture, otherwise pick full:
+
+- **lite** -- file the claim; name the lazier option ("this could stay a `raw/` note").
+- **full** -- update or create the minimum pages; skip extra types and tools.
+- **ultra** -- default to **No material** unless the source changes a page you would actually query later.
+
+## 4. Find or create the target page
 
 - Search the full `wiki/` for the source's key concepts and synonyms, not only `index.md`. Update existing pages rather than creating near-duplicates.
 - Before writing, decide the category: **New**, **Update**, **Disputed**, or **No material**. These may combine except No material, which is exclusive.
 - List the pages that would be created or materially updated. If there are more than three, ask the user to approve that scope first.
-- If the source adds no new knowledge, leave it in `raw/`, append a `No material` entry to `wiki/log.md`, and stop.
+- If the source adds no new knowledge, or posture is **ultra** and the source does not change what you would query later, leave it in `raw/`, append a `No material` entry to `wiki/log.md`, and stop.
 - If creating a new page, use `wiki/_template.md`, lowercase hyphen-separated filename.
 
-## 4. Write the page
+## 5. Write the page
 
 - Write a clear, concise, evergreen version - don't copy-paste the raw text.
 - Apply every rule in `AGENTS.md` > Style & Formatting: normalize curly quotes/apostrophes and HTML entities to straight ASCII, write the page in English regardless of the source's language (translate fully and note the source language in `## Sources`), use `-` list markers, and preserve minimal frontmatter field order. Never apply these normalizations or translation to the `raw/` source itself.
@@ -47,7 +55,7 @@ Assign a rough confidence per claim you extract (optional but recommended - see 
 - Add reciprocal links among affected pages during the ingest when the relationship is genuine.
 - If this contradicts something already on another wiki page, note the contradiction explicitly on both pages and consider filing `wiki/open-questions.md` if it's unresolved.
 
-## 5. Update the hub files
+## 6. Update the hub files
 
 - Add or update a one-line entry for the page in `wiki/index.md`, appended to the end of the relevant section (never prepended).
 - Append a dated entry to the bottom of `wiki/log.md` (newest last, never prepend or reorder): `## [YYYY-MM-DD] ingest | raw/<path> + main changes`. Keep the body concise; when it covers several distinct changes, list them as `-` bullets, one per change.

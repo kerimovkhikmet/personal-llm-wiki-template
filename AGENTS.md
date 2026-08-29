@@ -11,10 +11,10 @@ This repository is a local-first, Markdown-based personal LLM wiki.
 
 ## Start Here
 
+- Run every wiki workflow from start to finish in the active primary agent session. Never delegate or spawn subagents: no Task-tool delegation, no additional agent sessions, and no handing off of reading, judgment, or edits to another agent. All steps stay in this session.
 - Read `wiki/index.md` first, then skim `wiki/log.md` before changing anything. Treat this as background context only: read it to understand the repo, then do exactly the task the user asked, not more.
 - **Priority:** the user's explicit request in the current conversation overrides everything in this file. This file wins over a skill or command only when the user did not clearly say otherwise.
 - This file is the canonical contract. Detailed procedures are in `.opencode/skills/*/SKILL.md`; slash commands in `.opencode/command/` dispatch to those skills.
-- Run every wiki workflow from start to finish in the active primary agent session. Never delegate or spawn subagents: no Task-tool delegation, no additional agent sessions, and no handing off of reading, judgment, or edits to another agent. All steps stay in this session.
 - Search existing wiki pages before creating a topic. Do not invent a parallel structure or duplicate an existing page.
 - Relationship to `README.md`: this file is the canonical operating contract for the agent; the README is setup- and user-facing documentation. Where they overlap (commands, setup), this file governs agent behavior.
 
@@ -25,9 +25,20 @@ These negative rules are stated in full in the sections named by each bullet; th
 - Do not rewrite, rename, or delete raw files or entries (Raw Sources).
 - Do not prepend or reorder `wiki/index.md`, `wiki/log.md`, or `wiki/open-questions.md` (Curated Wiki).
 - Do not force `[[wiki-links]]` or fabricate `## Sources` backlinks (Curated Wiki).
-- Do not copy a page-type taxonomy speculatively (Wiki Layout, Optional Patterns).
-- Do not add search tooling, embeddings, or an MCP server before measured retrieval failures justify it (Optional Patterns).
+- Do not copy a page-type taxonomy speculatively (Wiki Layout).
+- Do not add search tooling, embeddings, or an MCP server before measured retrieval failures justify it.
 - Do not delegate wiki workflows to subagents or other sessions (Start Here).
+
+## Restraint
+
+Before every write, run this short ladder:
+
+- Does this claim need a page, or does it stay in `raw/`?
+- Search `wiki/` first; update the existing page rather than creating a near-duplicate.
+- Use `index.md` + lexical search, existing skills, or Obsidian if you already use it. Do not add a tool.
+- Surgical edit; one page; no new folder.
+- Does it survive a query? If nobody would ask for it later, it stays in `raw/`.
+- Read the source and candidate pages fully before writing; do not shrink a page by skipping the source.
 
 ## Choosing a workflow
 
@@ -39,7 +50,7 @@ Match the user's request to a workflow by what it is:
 - A question about the wiki, a comparison, or a gap-check - `/wiki-query` (read-only unless the user agrees to file).
 - Connecting a page to related pages - `/wiki-link`.
 - Surfacing raw material not yet ingested - `/wiki-review` (read-only).
-- Health-checking the wiki (orphans, broken links, stale claims) - `/wiki-lint` (read-only).
+- Health-checking the wiki (orphans, broken links, stale claims) - `/wiki-lint` (read-only; wait for explicit approval before fixing).
 - Working through a problem by finding unknown unknowns - `/wiki-discover`.
 - When unsure which of the above, read `wiki/index.md`, then ask the user to confirm before acting.
 
@@ -104,12 +115,6 @@ Stay flat until navigation becomes difficult. Add one shallow folder at a time, 
 ### Search tooling at scale
 
 Use `wiki/index.md` and lexical search by default. Consider a local Markdown search tool only after the wiki reaches a size where measured retrieval failures justify the extra dependency; do not add embeddings or an MCP server before they are needed.
-
-## Read-Only Workflows
-
-- `/wiki-review` reports raw material not yet ingested, without edits.
-- `/wiki-query` answers from existing wiki content and is read-only unless the user agrees to file new material.
-- `/wiki-lint` reports semantic wiki hygiene issues without edits; wait for explicit approval before fixing findings.
 
 ## Commands at a glance
 
