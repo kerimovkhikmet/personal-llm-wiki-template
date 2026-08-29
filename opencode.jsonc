@@ -57,7 +57,7 @@
   "compaction": {
     "auto": true,
     "prune": true,
-    "reserved": 4096
+    "reserved": 2048
   },
   // Compaction is client-side (opencode) and applies to every model; see
   // README.md > Local setup with Ollama > Compaction for how it works and how
