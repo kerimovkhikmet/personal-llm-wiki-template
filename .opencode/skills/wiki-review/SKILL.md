@@ -22,6 +22,7 @@ Default to all of `raw/` if no scope is given; otherwise respect a requested ran
 
 - **Do not make any edits.** This skill only reports findings.
 - Do not treat `raw/foundation.md` as a source; review the files it lists normally.
+- Skip non-source helper files in `raw/notes/` - the `_chat-export-prompt.md` and any `README.md`, `_template.md`, or `_`-prefixed helper - rather than reporting them as pending ingestion.
 - Don't change `wiki/index.md`, `wiki/log.md`, or `wiki/open-questions.md`.
 - After a Wiki Domain change, include sources previously logged as **No material** and unresolved questions whose relevance may have changed.
 - Wait for the user to request specific sources for ingestion, via `/wiki-ingest` or plain language.

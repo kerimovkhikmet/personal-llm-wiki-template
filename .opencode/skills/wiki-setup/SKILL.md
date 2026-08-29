@@ -43,7 +43,8 @@ They are permanent. Never delete, rename, or rewrite them, and never offer to re
 - Do not run OpenCode's `/init`; this repository already has a canonical `AGENTS.md`.
 - Do not broaden the requested change into README rewriting unless the user explicitly asks for it.
 - The bundled seed source `raw/notes/2026-08-26-llm-wiki.md` and its derived page `wiki/llm-maintained-personal-wikis.md` are permanent. When this wiki is used locally, the seed is the source of truth for the wiki methodology; never delete, rename, or rewrite it.
+- After retargeting to a genuinely different topic, the preserved seed page `wiki/llm-maintained-personal-wikis.md` is out of the new domain. Keep it, but recommend the owner group it separately in `wiki/index.md` (for example under an explicit "About this wiki / Methodology" heading) so it stays referenceable without feeding domain ingestion decisions. Do not delete, rewrite, or re-file it during setup, and only move or rename it with the owner's explicit approval as a normal `wiki-ingest` edit.
 
 ## Done
 
-Report the configured topic, scope, exclusions, and English level; confirm the bundled seed source and its derived page are preserved; and list any existing pages that may need review.
+Report the configured topic, scope, exclusions, and English level; confirm the bundled seed source and its derived page are preserved; and list any existing pages that may need review, including how the out-of-domain seed page should be kept grouped in `wiki/index.md`.
