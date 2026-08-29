@@ -32,7 +32,7 @@ The agent does the tedious part: reading through raw captures, spotting what's w
 
 ## Requirements
 
-- **[OpenCode](https://opencode.ai/docs)** - required. This runs the setup/bootstrap/capture/ingest/link/review/query/lint workflow.
+- **[OpenCode](https://opencode.ai/docs)** - required. This runs the setup/bootstrap/capture/ingest/link/review/query/lint/discover workflow.
 - **[Ollama](https://ollama.com/download)** - the default local provider. Cloud users can use the optional profile below instead.
 - **[Obsidian](https://obsidian.md)** - optional, for browsing `wiki/` with backlinks/graph view, and for the [Obsidian Web Clipper](https://obsidian.md/clipper) browser extension if you want one-click clipping into `raw/notes/`.
 - **Node.js** - optional, only needed to run `markdownlint-cli` locally (see [Markdown linting](#markdown-linting)). Not required to use a wiki instance day to day.
@@ -54,14 +54,15 @@ To start a new wiki:
 1. Install [OpenCode](https://opencode.ai/docs). Install [Ollama](https://ollama.com/download) for the default local setup, or follow [Optional cloud model](#optional-cloud-model).
 2. Create the local model by following [Local setup with Ollama](#local-setup-with-ollama), unless using the cloud profile.
 3. Run `opencode` in this directory and try:
-   - `/wiki-setup` to configure a new instance's topic, scope, and exclusions
    - `/wiki-bootstrap` to seed it from the sources listed in `raw/foundation.md`
    - `/wiki-capture I just learned that ...`
+   - `/wiki-discover` to find unknown unknowns before/during/after a task
    - `/wiki-ingest` to turn a raw entry or `raw/notes/` clipping into wiki pages
    - `/wiki-link` to connect a wiki page to related pages
-   - `/wiki-review` to see what's been captured but not yet ingested
-   - `/wiki-query` to query the wiki directly
    - `/wiki-lint` to health-check the wiki itself (orphans, broken links)
+   - `/wiki-query` to query the wiki directly
+   - `/wiki-review` to see what's been captured but not yet ingested
+   - `/wiki-setup` to configure a new instance's topic, scope, and exclusions
 
 ## Workflow
 
@@ -147,20 +148,23 @@ OpenCode Zen is pay-as-you-go. Set a workspace monthly limit and review automati
 
 ## Architecture: skills + thin commands
 
-Each workflow (setup, bootstrap, capture, ingest, link, review, query, lint) is a full `.opencode/skills/<name>/SKILL.md` with the detailed procedure and rules. The slash commands in `.opencode/command/` are simple - a couple of lines that point at the matching skill. This means the same rules apply whether you type `/wiki-ingest` or just ask in plain language ("can you turn this into wiki pages?") - skills, unlike commands, are also loaded automatically when a plain request matches their description.
+Each workflow (setup, bootstrap, capture, ingest, link, review, query, lint, discover) is a full `.opencode/skills/<name>/SKILL.md` with the detailed procedure and rules. The slash commands in `.opencode/command/` are simple - a couple of lines that point at the matching skill. This means the same rules apply whether you type `/wiki-ingest` or just ask in plain language ("can you turn this into wiki pages?") - skills, unlike commands, are also loaded automatically when a plain request matches their description.
 
 | Command           | Skill            | What it does                                                                      |
 | ----------------- | ---------------- | --------------------------------------------------------------------------------- |
-| `/wiki-setup`     | `wiki-setup`     | Configure the domain; the bundled seed is kept as canonical material.             |
 | `/wiki-bootstrap` | `wiki-bootstrap` | Ingest up to ten sources from the foundation manifest, one at a time.             |
 | `/wiki-capture`   | `wiki-capture`   | Append a new timestamped entry to today's `raw/` daily log.                       |
+| `/wiki-discover`  | `wiki-discover`  | Find unknown unknowns on a task before/during/after.                              |
 | `/wiki-ingest`    | `wiki-ingest`    | Integrate a raw source into curated wiki pages with source backlinks.             |
 | `/wiki-link`      | `wiki-link`      | Scan `wiki/` for related pages and add cross-links/backlinks.                     |
-| `/wiki-review`    | `wiki-review`    | Surface raw entries/clippings not yet ingested (read-only).                     |
-| `/wiki-query`     | `wiki-query`     | Answer a question from the wiki, with citations and optional retrieval questions. |
 | `/wiki-lint`      | `wiki-lint`      | Semantically check wiki health: orphans, broken links, and stale claims.          |
+| `/wiki-query`     | `wiki-query`     | Answer a question from the wiki, with citations and optional retrieval questions. |
+| `/wiki-review`    | `wiki-review`    | Surface raw entries/clippings not yet ingested (read-only).                     |
+| `/wiki-setup`     | `wiki-setup`     | Configure the domain; the bundled seed is kept as canonical material.             |
 
-All eight commands run from start to finish in the active primary agent session. Delegating or spawning subagents (e.g. the Task tool, additional agent sessions) is prohibited - source discovery, judgment, approvals, and edits stay in one visible context so the wiki owner keeps control over what is read and changed. This also avoids divergent context, overlapping edits, and additional model requests, which keeps local Ollama runs predictable.
+All nine commands run from start to finish in the active primary agent session. Delegating or spawning subagents (e.g. the Task tool, additional agent sessions) is prohibited - source discovery, judgment, approvals, and edits stay in one visible context so the wiki owner keeps control over what is read and changed. This also avoids divergent context, overlapping edits, and additional model requests, which keeps local Ollama runs predictable.
+
+The commands and conventions above are documented for agents in `AGENTS.md`, including a request-routing guide (`Choosing a workflow`) and a compact command reference (`Commands at a glance`).
 
 ## Multi-tool support
 

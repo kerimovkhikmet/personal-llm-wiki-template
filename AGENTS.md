@@ -24,7 +24,8 @@ This repository is a local-first, Markdown-based personal LLM wiki.
 - `raw/notes/2026-08-26-llm-wiki.md` is a permanent canonical source: never delete, rename, or rewrite it or its derived page. When this wiki is used locally, it is the source of truth for the wiki methodology.
 - Use `raw/YYYY/YYYY-MM-DD.md` for quick, untitled captures, appended under a new `## HH:MM` heading.
 - Use `raw/notes/YYYY-MM-DD-<slug>.md` for titled or externally sourced material. Keep its original language and frontmatter.
-- `/wiki-capture` only appends to `raw/`; it must not modify `wiki/`.
+- A capture sits in the daily log until it becomes substantial enough to promote to `raw/notes/` (titled or sourced) or to ingest directly into `wiki/`. Surface anything not yet ingested with `/wiki-review`; not every capture needs promoting.
+- `/wiki-capture` appends to `raw/` only; it must not modify `wiki/`.
 - `/wiki-bootstrap` reads foundation sources sequentially and never modifies them. It may propose Wiki Domain refinements, but changing `AGENTS.md` requires explicit approval.
 
 ## PDF Sources
