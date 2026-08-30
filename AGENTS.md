@@ -81,6 +81,7 @@ Match the user's request to a workflow by what it is:
 - Record unresolved gaps or contradictions in `wiki/open-questions.md` as appended entries - never prepend or delete existing ones.
 - When ingesting, search for existing pages first, keep the `## Sources` backlinks, and ask before creating or significantly updating more than three topic pages.
 - Only normalize wiki output: use ASCII quotes/apostrophes and `-` list markers. Do not reformat raw sources.
+- Power-of-two ceilings: `tags` 4, lines 64, `Sources` 8 (ask, not must).
 
 ## Language
 
@@ -97,10 +98,10 @@ Match the user's request to a workflow by what it is:
 
 ## Wiki Layout
 
-- Keep topic pages flat in `wiki/` initially.
+- Keep topic pages flat in `wiki/` initially. Flat `wiki/` until 64 topic pages. Trigger: index sections become hard to scan.
 - Introduce shallow page-type folders only when real pages make the flat layout unwieldy. Choose types that fit this wiki's domain, such as `concepts/`, `entities/`, or `practices/`; do not copy a taxonomy speculatively.
 - Keep `index.md`, `log.md`, `open-questions.md`, `README.md`, and `_template.md` at the `wiki/` root.
-- Group `wiki/index.md` by the same page types when folders are introduced. Distinguish entities from ideas or practices derived from them.
+- Group `wiki/index.md` by the same page types when folders are introduced. Index sections until 8 entries. Trigger: flat Pages hard to scan. Distinguish entities from ideas or practices derived from them.
 
 ## Optional Patterns
 

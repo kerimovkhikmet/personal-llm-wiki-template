@@ -10,7 +10,7 @@ Read `wiki/index.md` first.
 1. Read the target page and skim `wiki/index.md` (and other pages if needed) for topical overlap - shared tags, referenced concepts, related tools/subjects.
 2. For each genuinely related page found, add or update a `## Related` section on the target page with a `[[wiki-link]]`.
 3. Add a reciprocal `[[wiki-link]]` on the related page(s) back to the target page, if one isn't already there.
-4. Don't force links that aren't a good fit just to have more of them - an empty or short `## Related` section is fine.
+ 4. Don't force links that aren't a good fit just to have more of them - an empty or short `## Related` section is fine. Keep `Related` to 4 ideal / 8 hard; if more would help, ask first.
 
 ## Done
 

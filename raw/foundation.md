@@ -1,6 +1,6 @@
 # Foundation Sources
 
-Optional ordered manifest of sources that should seed a new wiki. Add up to ten paths to immutable files elsewhere under `raw/`, one per list item.
+Optional ordered manifest of sources that should seed a new wiki. Add up to eight paths to immutable files elsewhere under `raw/`, one per list item.
 
 Example:
 
@@ -11,4 +11,4 @@ Example:
 
 ## Sources
 
-<!-- Add up to ten raw source paths here. This manifest is not itself a source. -->
+<!-- Add up to eight raw source paths here. This manifest is not itself a source. -->

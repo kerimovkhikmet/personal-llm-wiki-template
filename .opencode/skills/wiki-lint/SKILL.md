@@ -24,6 +24,7 @@ Read `wiki/index.md`, `wiki/log.md`, and `wiki/open-questions.md` first. Don't o
 - **`stale:`** claim with no current source.
 - **`hub-drift:`** `index.md` / `log.md` out of date.
 - **Formatting drift** - curly quotes, HTML entities, or `*`/`+` list markers that slipped into a `wiki/` page (see `AGENTS.md` > Style & Formatting).
+- **Power-of-two ceilings** - `tags` >4, lines >64, `Sources` >8, `Related` >4 (>8 hard), `index.md` section >8 entries, `pages per ingest` >4 (see `AGENTS.md` > Wiki Layout and `wiki/README.md` debt ledger).
 
 ## Output
 
