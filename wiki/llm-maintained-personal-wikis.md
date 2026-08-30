@@ -6,6 +6,8 @@ tags: [llm, knowledge-management, personal-wiki]
 
 An LLM-maintained personal wiki is a knowledge base that an agent builds up over time from a set of raw source files. The agent compiles knowledge as sources arrive, instead of re-combining the raw files for every question. This way summaries, links, contradictions, and earlier conclusions can build up and stay current.
 
+> Methodology -- this page is the template methodology, derived from `[[raw/notes/2026-08-26-llm-wiki.md]]` (Karpathy gist). It is exempt from the Wiki Domain, lives under `## About this wiki / Methodology` in `wiki/index.md`, and is present in every instance. Never delete it and never report it as out-of-domain.
+
 ## Core model
 
 A common approach today is retrieval-augmented generation (RAG): the system keeps the raw files, searches them for relevant parts on each question, and builds an answer from scratch every time. In the wiki model, the agent instead reads each new source and integrates it into long-lived topic pages. A later question can start from what is already written instead of re-finding every connection in the original files.

@@ -8,6 +8,7 @@ This repository is a local-first, Markdown-based personal LLM wiki.
 - **Scope:** Architecture, workflows, source tracking, curation, retrieval, maintenance, and the tools and practices that directly support them.
 - **Out of scope:** Unrelated application code, general AI news, and material without a clear connection to the topic.
 - If this domain changes, rerun `/wiki-review` over prior **No material** decisions and revisit related entries in `wiki/open-questions.md`; previously excluded sources may have become relevant.
+- `raw/notes/2026-08-26-llm-wiki.md` (Karpathy gist) and its derived page `wiki/llm-maintained-personal-wikis.md` are template methodology and are exempt from the Wiki Domain; they remain in every instance under `## About this wiki / Methodology` in `wiki/index.md` and are never reported as out-of-domain.
 
 ## Start Here
 

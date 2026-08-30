@@ -31,7 +31,7 @@ They are permanent. Never delete, rename, or rewrite them, and never offer to re
 1. Replace only the corresponding values in `AGENTS.md` > Wiki Domain, and write the chosen English level into the `English level` bullet in `AGENTS.md` > Style & Formatting.
 2. Preserve the domain-change re-review rule and every workflow, source, language, style, layout, and tooling rule outside those values and the level bullet.
 3. Do not modify `opencode.jsonc`, commands, skills, raw sources, or topic pages. The bundled seed source and its derived page are permanent - never delete, rename, or rewrite them.
-4. Search `wiki/index.md` for other existing pages that appear clearly outside the new domain. Report them for review; do not move, rewrite, or delete them.
+4. Search `wiki/index.md` for other existing pages -- excluding `wiki/llm-maintained-personal-wikis.md` and its source `raw/notes/2026-08-26-llm-wiki.md` which are template methodology and exempt from the Wiki Domain -- that appear clearly outside the new domain. Report only those non-exempt pages for review; do not move, rewrite, or delete them.
 5. Append a concise dated `structure` entry to the bottom of `wiki/log.md` recording the domain configuration. Do not claim that other existing content was reviewed unless it actually was.
 6. Run the setup end-to-end in the active primary agent session; never delegate or spawn subagents (no Task-tool delegation, no additional agent sessions).
 
@@ -43,8 +43,8 @@ They are permanent. Never delete, rename, or rewrite them, and never offer to re
 - Do not run OpenCode's `/init`; this repository already has a canonical `AGENTS.md`.
 - Do not broaden the requested change into README rewriting unless the user explicitly asks for it.
 - The bundled seed source `raw/notes/2026-08-26-llm-wiki.md` and its derived page `wiki/llm-maintained-personal-wikis.md` are permanent. When this wiki is used locally, the seed is the source of truth for the wiki methodology; never delete, rename, or rewrite it.
-- After retargeting to a genuinely different topic, the preserved seed page `wiki/llm-maintained-personal-wikis.md` is out of the new domain. Keep it, but recommend the owner group it separately in `wiki/index.md` (for example under an explicit "About this wiki / Methodology" heading) so it stays referenceable without feeding domain ingestion decisions. Do not delete, rewrite, or re-file it during setup, and only move or rename it with the owner's explicit approval as a normal `wiki-ingest` edit.
+- The preserved seed page `wiki/llm-maintained-personal-wikis.md` and its source `raw/notes/2026-08-26-llm-wiki.md` are template methodology and are exempt from the Wiki Domain. Always keep them and ensure `wiki/index.md` has an `## About this wiki / Methodology` heading listing `[[llm-maintained-personal-wikis]]` (create it if missing). Never delete, rewrite, re-file, or report it as out-of-domain during setup, and only move or rename it with the owner's explicit approval as a normal `wiki-ingest` edit.
 
 ## Done
 
-Report the configured topic, scope, exclusions, and English level; confirm the bundled seed source and its derived page are preserved; and list any existing pages that may need review, including how the out-of-domain seed page should be kept grouped in `wiki/index.md`.
+Report the configured topic, scope, exclusions, and English level; confirm the bundled seed source and its derived page are preserved and remain under `## About this wiki / Methodology` in `wiki/index.md`; and list any non-exempt existing pages that may need review.
