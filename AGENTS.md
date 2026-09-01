@@ -29,6 +29,12 @@ These negative rules are stated in full in the sections named by each bullet; th
 - Do not copy a page-type taxonomy speculatively (Wiki Layout).
 - Do not add search tooling, embeddings, or an MCP server before measured retrieval failures justify it.
 - Do not delegate wiki workflows to subagents or other sessions (Start Here).
+- Do not run git write commands, and keep other git usage off unless the Git policy allows it (Git).
+
+## Git
+
+- Never run git write commands: no `add`, `commit`, `push`, `pull`, `merge`, `rebase`, `branch`, `tag`, `stash`, `reset`, `checkout`, `restore`, `clean`, `rm`, `mv`, or any hook or alias that writes. The user manages version control; do not offer to commit, push, or stage.
+- Git policy: `off` (default). Do not run git commands at all, including read-only ones (`status`, `log`, `diff`, `blame`); work from the files alone to keep context small. `/wiki-setup` may set the policy to `read`, which allows read-only git commands when they genuinely help. Write commands stay prohibited under every policy.
 
 ## Restraint
 

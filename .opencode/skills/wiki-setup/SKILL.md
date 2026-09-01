@@ -13,9 +13,10 @@ Collect these three fields:
 - **Scope:** the subjects, practices, or source types that belong in the wiki.
 - **Out of scope:** adjacent material that should not be filed here.
 
-And one optional field:
+And two optional fields:
 
 - **English level:** how the wiki's English should read. Options: `plain` (default - plain, simple English that a non-native speaker can read easily), `standard` (clear, neutral English with common words), or `technical` (technical English for expert readers). If the user does not give one, keep the current level.
+- **Git policy:** how much git the agent may use. Options: `off` (default - no git commands at all, not even read-only ones) or `read` (read-only git commands like `status`, `log`, `diff` are allowed when they genuinely help; write commands stay prohibited). If the user does not give one, keep the current policy.
 
 If any field is missing or ambiguous, ask for all missing details in one concise question. Do not infer a broad scope from the repository name alone.
 
@@ -28,8 +29,8 @@ They are permanent. Never delete, rename, or rewrite them, and never offer to re
 
 ## Procedure
 
-1. Replace only the corresponding values in `AGENTS.md` > Wiki Domain, and write the chosen English level into the `English level` bullet in `AGENTS.md` > Style & Formatting.
-2. Preserve the domain-change re-review rule and every workflow, source, language, style, layout, and tooling rule outside those values and the level bullet.
+1. Replace only the corresponding values in `AGENTS.md` > Wiki Domain, and write the chosen English level and Git policy into the `English level` bullet in `AGENTS.md` > Style & Formatting and the `Git policy` bullet in `AGENTS.md` > Git.
+2. Preserve the domain-change re-review rule and every workflow, source, language, style, layout, and tooling rule outside those values, the level bullet, and the Git policy bullet. The prohibition on git write commands is not configurable - never weaken it.
 3. Do not modify `opencode.jsonc`, commands, skills, raw sources, or topic pages. The bundled seed source and its derived page are permanent - never delete, rename, or rewrite them.
 4. Search `wiki/index.md` for other existing pages -- excluding `wiki/llm-maintained-personal-wikis.md` and its source `raw/notes/2026-08-26-llm-wiki.md` which are template methodology and exempt from the Wiki Domain -- that appear clearly outside the new domain. Report only those non-exempt pages for review; do not move, rewrite, or delete them.
 5. Append a concise dated `structure` entry to the bottom of `wiki/log.md` recording the domain configuration. Do not claim that other existing content was reviewed unless it actually was.
@@ -47,4 +48,4 @@ They are permanent. Never delete, rename, or rewrite them, and never offer to re
 
 ## Done
 
-Report the configured topic, scope, exclusions, and English level; confirm the bundled seed source and its derived page are preserved and remain under `## About this wiki / Methodology` in `wiki/index.md`; and list any non-exempt existing pages that may need review.
+Report the configured topic, scope, exclusions, English level, and Git policy; confirm the bundled seed source and its derived page are preserved and remain under `## About this wiki / Methodology` in `wiki/index.md`; and list any non-exempt existing pages that may need review.
