@@ -7,6 +7,7 @@ The second `raw/` capture lane: anything that already has a **title and/or an ex
 - Articles clipped with the [Obsidian Web Clipper](https://obsidian.md/clipper) browser extension - point it at this folder and it writes directly here.
 - A saved PDF or spec. Keep the original PDF when it is the canonical source; conversion to Markdown is optional and must not replace it.
 - A chat export from another tool - see `_chat-export-prompt.md` for a reusable prompt that turns an old chatbot thread into a clean note.
+- A digest of a long video or audio source (podcast, lecture, talk) produced with NotebookLM - see `_notebooklm-digest-prompt.md` and the section below.
 - A personal note substantial enough to deserve its own file (not just a line in today's log).
 
 ## Filenames and frontmatter
@@ -28,6 +29,15 @@ If a clipped article's images matter (diagrams, screenshots, charts - not just d
 
 - Use the built-in PDF reader for semantic extraction. If Poppler is installed, supplement it with `pdfinfo`, `pdftotext -layout`, and `pdftoppm` for metadata, layout-aware text, and rendered-page inspection.
 - Prefer the PDF as the canonical source when text extraction and visual layout differ; diagrams, tables, and annotations may encode relationships that plain text cannot preserve.
+
+## NotebookLM digests (long video/audio)
+
+NotebookLM (Google) turns a long video or audio source into a compact, timestamped digest, so the transcript (often 50-100k tokens for a multi-hour episode) never enters the repo. Run `_notebooklm-digest-prompt.md` in the notebook - single pass for sources of about 2 hours or less, a three-pass chapter protocol for longer episodes - and save the output here:
+
+- Filename: `YYYY-MM-DD-digest-<slug>.md`, one note per episode; long sources use `## Chapter - HH:MM` sections so each chapter can be ingested and cited independently.
+- Keep the provenance frontmatter the prompt emits: `source` (canonical URL), `tool: notebooklm`, `duration`, `date`, `tags: [digest]`.
+- Skim before saving - a digest is model output, so fix or drop anything that looks wrong, and keep your own takeaways under `## My annotations`.
+- Same append-only rules as every file here. At ingest, digest claims are `reported`-tier; exact numbers, dates, and quotes come only from timestamped verbatim marks (see the `wiki-ingest` skill).
 
 ## Rules
 

@@ -22,6 +22,8 @@ Read `AGENTS.md` first if you haven't already this session (Wiki Domain, Style &
 3. Title or `site` field - weak signal alone.
 4. Which `raw/` folder it's in - weakest signal; a blog clipped into `notes/` is still a blog, an official doc doesn't need to be moved.
 
+Digest shortcut: if the frontmatter carries `tool: notebooklm`, the note is an LLM digest of a video or audio source (see `raw/notes/_notebooklm-digest-prompt.md`). Treat its claims as `reported` even when the digest sounds confident; use exact numbers, dates, and quotes only where the digest marks them verbatim with a timestamp. For long digests with `## Chapter - HH:MM` sections, ingest chapter-by-chapter and cite the digest file in `## Sources` - it carries the canonical URL.
+
 Assign a rough confidence per claim you extract (optional but recommended - see AGENTS.md > Optional Patterns > Confidence tagging):
 
 - `established` - official docs/spec, current behavior.
