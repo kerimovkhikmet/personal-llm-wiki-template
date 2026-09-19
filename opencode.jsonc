@@ -1,28 +1,38 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Project context: teaches every opencode session (not just the custom
-  // commands below) the raw/ vs wiki/ conventions this repo follows.
-  "instructions": ["AGENTS.md"],
+  // AGENTS.md is auto-loaded by OpenCode V2 for project instructions.
+  // V2 accepts an `instructions` array but does not resolve it, so it is
+  // omitted here on purpose.
 
   // One local model handles both normal and lightweight tasks so Ollama does
   // not need to keep two models resident.
   "model": "ollama/llm-wiki:4b",
-  "small_model": "ollama/llm-wiki:4b",
   "share": "disabled",
+  "agents": {
+    // V2 replacement for V1 `small_model`: title generation uses the same
+    // local model.
+    "title": {
+      "model": "ollama/llm-wiki:4b"
+    }
+  },
 
-  "provider": {
+  "providers": {
     "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
       "name": "Ollama (local)",
-      "options": {
+      "package": "aisdk:@ai-sdk/openai-compatible",
+      "settings": {
         "baseURL": "http://localhost:11434/v1",
         "timeout": 600000
       },
       "models": {
         "llm-wiki:4b": {
           "name": "LLM Wiki Qwen3 4B (16K)",
-          "tool_call": true,
+          "capabilities": {
+            "tools": true,
+            "input": ["text"],
+            "output": ["text"]
+          },
           "limit": {
             "context": 16384,
             "output": 4096
@@ -39,25 +49,53 @@
 
   // Keep this Markdown-only project offline and avoid background language
   // tooling. Earlier tool results are pruned to preserve the 16K context window.
-  "permission": {
-    "bash": {
-      "*": "ask",
-      "git status": "allow",
-      "git status *": "allow",
-      "npx -y markdownlint-cli *": "allow"
+  // Ordered permissions: last match wins, so specific allows follow the broad ask.
+  "permissions": [
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git status",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git status *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npx -y markdownlint-cli *",
+      "effect": "allow"
     },
     // wiki workflows must stay single-session (AGENTS.md Start Here). Cloud or
-    // non-wiki Task use can be re-enabled in user config (~/.config/opencode/opencode.json).
-    "task": "deny",
-    "webfetch": "deny",
-    "websearch": "deny"
-  },
+    // non-wiki subagent use can be re-enabled in user config (~/.config/opencode/opencode.json).
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "deny"
+    }
+  ],
   "formatter": false,
-  "lsp": false,
   "compaction": {
     "auto": true,
-    "prune": true,
-    "reserved": 2048
+    "keep": {
+      "tokens": 15000
+    },
+    "buffer": 2048
   },
   // Compaction is client-side (opencode) and applies to every model; see
   // README.md > Local setup with Ollama > Compaction for how it works and how
@@ -67,7 +105,7 @@
     "max_bytes": 16384
   }
 
-  // Commands in .opencode/command/ and skills in .opencode/skills/ are
+  // Commands in .opencode/commands/ and skills in .opencode/skills/ are
   // auto-discovered and do not need registration here. The template does not
   // configure additional agent roles.
 

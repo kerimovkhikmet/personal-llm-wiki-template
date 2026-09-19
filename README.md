@@ -129,11 +129,11 @@ The default targets a machine with 16 GB of RAM or VRAM. It uses one Qwen3 4B mo
    opencode
    ```
 
-`opencode.jsonc` pins `ollama/llm-wiki:4b` as the default, disables sharing, web access, formatters, and language servers, and removes older tool results. This keeps the default operation fully local and limits context growth. Other providers can still be selected explicitly as described below. Small models are less reliable at combining information across many pages, so the ingestion workflow asks before significantly changing more than three topic pages.
+`opencode.jsonc` pins `ollama/llm-wiki:4b` as the default, disables sharing, web access, and formatters, and removes older tool results. This keeps the default operation fully local and limits context growth. Other providers can still be selected explicitly as described below. Small models are less reliable at combining information across many pages, so the ingestion workflow asks before significantly changing more than three topic pages.
 
 The English level of generated wiki pages also depends on the model - a small local model tends to write simpler, plainer English, while larger or cloud models may use a richer vocabulary. The target level is `plain` by default (see `AGENTS.md` > Style & Formatting) and can be changed with `/wiki-setup`.
 
-If 4B is not reliable enough and the machine has enough spare memory, change the `FROM` line in `ollama/Modelfile` to `qwen3:8b`, build it under a distinct tag, update both model fields in `opencode.jsonc`, and review latency and memory use before adopting it permanently.
+If 4B is not reliable enough and the machine has enough spare memory, change the `FROM` line in `ollama/Modelfile` to `qwen3:8b`, build it under a distinct tag, update `model` and `agents.title.model` in `opencode.jsonc`, and review latency and memory use before adopting it permanently.
 
 ### Choosing a model and context for your machine
 
@@ -155,7 +155,7 @@ ollama pull qwen3.5:9b
 Then update `opencode.jsonc`:
 
 - Set the default: `"model": "ollama/qwen3.5:9b"`.
-- Register the model under `provider.ollama.models` with `tool_call: true` and a `limit.context` / `limit.output` the machine can support (for example `32768` / `8192`).
+- Register the model under `providers.ollama.models` with `capabilities.tools: true` and a `limit.context` / `limit.output` the machine can support (for example `32768` / `8192`).
 - Keep the same window in `ollama/Modelfile`: `PARAMETER num_ctx <context>`.
 
 Prefer making the model and context changes in your user-level config (`~/.config/opencode/opencode.json`) so `git` does not force one machine's values on everyone using the repo.
@@ -164,7 +164,7 @@ Prefer making the model and context changes in your user-level config (`~/.confi
 
 Compaction summarizes older context to make room once a session nears its limit. It is performed by opencode (the client), not by Ollama: when a session approaches the per-model `limit.context`, opencode asks the active model to summarize older context. It is model-agnostic and covers every model, but summary quality scales with the model. Because durable knowledge here lives in `raw/` and `wiki/` rather than only in the conversation, a lossy compaction is low-cost. During long ingests, it helps to persist recognized decisions to `wiki/log.md` or `wiki/open-questions.md` as you go so a compaction cannot silently drop them.
 
-The `compaction` block in `opencode.jsonc` sets `auto`, `prune` (drop older tool output down to a `reserved` token budget first), and `reserved`. The main lever to reduce frequent compaction during a long ingest is a larger context window, not these numbers.
+The `compaction` block in `opencode.jsonc` sets `auto`, `keep.tokens`, and `buffer`. The main lever to reduce frequent compaction during a long ingest is a larger context window, not these numbers.
 
 ### Resuming a session by ID
 
@@ -190,13 +190,13 @@ Users who prefer an OpenCode Zen model can select one explicitly. The local Olla
    opencode -m opencode/<model-id>
    ```
 
-For a complete cloud switch, also change `model` and `small_model` in `opencode.jsonc` to the same `opencode/<model-id>`. The project config intentionally does not restrict enabled providers, so explicit cloud selection works while the local model remains the default. It keeps web access disabled, but your prompts and any raw/wiki content included in the context are sent to the selected cloud provider. Use Ollama when the content must remain on the local machine.
+For a complete cloud switch, also change `model` and `agents.title.model` in `opencode.jsonc` to the same `opencode/<model-id>`. The project config intentionally does not restrict enabled providers, so explicit cloud selection works while the local model remains the default. It keeps web access disabled, but your prompts and any raw/wiki content included in the context are sent to the selected cloud provider. Use Ollama when the content must remain on the local machine.
 
 OpenCode Zen is pay-as-you-go. Set a workspace monthly limit and review automatic balance reload settings before using it. The Zen usage display and account billing page may not update at the same time; use the billing page as the source of truth for charges.
 
 ## Architecture: skills + thin commands
 
-Each workflow (setup, bootstrap, capture, ingest, link, review, query, lint, discover) is a full `.opencode/skills/<name>/SKILL.md` with the detailed procedure and rules. The slash commands in `.opencode/command/` are simple - a couple of lines that point at the matching skill. This means the same rules apply whether you type `/wiki-ingest` or just ask in plain language ("can you turn this into wiki pages?") - skills, unlike commands, are also loaded automatically when a plain request matches their description.
+Each workflow (setup, bootstrap, capture, ingest, link, review, query, lint, discover) is a full `.opencode/skills/<name>/SKILL.md` with the detailed procedure and rules. The slash commands in `.opencode/commands/` are simple - a couple of lines that point at the matching skill. This means the same rules apply whether you type `/wiki-ingest` or just ask in plain language ("can you turn this into wiki pages?") - skills, unlike commands, are also loaded automatically when a plain request matches their description.
 
 | Command           | Skill            | What it does                                                                      |
 | ----------------- | ---------------- | --------------------------------------------------------------------------------- |

@@ -5,12 +5,10 @@
 # Exits 0 if clean, 1 if violations found.
 # Portable: uses perl (available on Linux and macOS) instead of GNU grep -P.
 
-FILES="wiki/ AGENTS.md .opencode/skills/ .opencode/command/ README.md GEMINI.md .github/copilot-instructions.md"
-
-found=0
+FILES="wiki/ AGENTS.md .opencode/skills/ .opencode/commands/ README.md GEMINI.md .github/copilot-instructions.md"
 
 echo "--- Non-ASCII check ---"
-nonascii=""
+found=0
 for f in $FILES; do
     if [ -f "$f" ]; then
         out=$(perl -C -ne 'print if /[^\x00-\x7F]/' "$f" 2>/dev/null)

@@ -4,4 +4,3 @@ FROM qwen3:4b
 # pages while remaining practical on a 16 GB machine.
 PARAMETER num_ctx 16384
 PARAMETER num_predict 4096
-

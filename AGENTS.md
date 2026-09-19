@@ -15,7 +15,7 @@ This repository is a local-first, Markdown-based personal LLM wiki.
 - Run every wiki workflow in the active primary agent session; never delegate or spawn subagents or additional sessions (no Task-tool use). All steps stay in this session.
 - Read `wiki/index.md` first, then skim `wiki/log.md` before changing anything - background context only. Do exactly the task the user asked, not more.
 - **Priority:** the user's explicit request in the current conversation overrides everything in this file. This file wins over a skill or command only when the user did not clearly say otherwise.
-- This file is the canonical contract; detailed procedures live in `.opencode/skills/*/SKILL.md`, and slash commands in `.opencode/command/` dispatch to those skills. The README is setup- and user-facing; where they overlap, this file governs agent behavior.
+- This file is the canonical contract; detailed procedures live in `.opencode/skills/*/SKILL.md`, and slash commands in `.opencode/commands/` dispatch to those skills. The README is setup- and user-facing; where they overlap, this file governs agent behavior.
 
 ## Do Not
 

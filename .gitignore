@@ -62,7 +62,7 @@ $RECYCLE.BIN/
 **/.obsidian/
 
 # opencode local/session artifacts (do NOT ignore .opencode/agent,
-# .opencode/command, .opencode/skills)
+# .opencode/commands, .opencode/skills)
 .opencode/cache/
 .opencode/logs/
 .opencode/node_modules/
